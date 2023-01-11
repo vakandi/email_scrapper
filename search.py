@@ -15,13 +15,13 @@ print(f'{len(results)} websites found')
 
 email_count = 0
 
-def findMails(soup):
-    data = ''
-    for tag in soup('body'):
-        data += tag.text.strip()
-
-    return re.findall(
-        '[\w\.-]+@[\w\.-]+\.\w+', data)
+#def findMails(soup):
+#    data = ''
+#    for tag in soup('body'):
+#        data += tag.text.strip()
+#
+#    return re.findall(
+#        '[\w\.-]+@[\w\.-]+\.\w+', data)
 
 
 
@@ -29,16 +29,17 @@ def get_emails(url):
     """Function that gets emails from a webpage and it's links"""
     global email_count
     try:
-#        source = requests.get(url)
-#        soup = BeautifulSoup(source.text, 'lxml')
-#        find_emails = soup.find_all(text=re.compile('[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-.]+'))
-        soup = BeautifulSoup(source.text, 'html.parser')
-        email = findMails(soup)
-        print(email) if len(email) > 0 else print('Emails Not found')
+        source = requests.get(url)
+        soup = BeautifulSoup(source.text, 'lxml')
+        find_emails = soup.find_all(text=re.compile('[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-.]+'))
+#        soup = BeautifulSoup(source.text, 'html.parser')
+#        email = findMails(soup)
+#        print(email) if len(email) > 0 else print('Emails Not found')
 
         nb_email_found = len(email)
         email_count += nb_email_found
         print(f'{nb_email_found} email(s) found on {url}')
+        #WHY DON'T YOU GET THOSE FUCKING EMAIL IN THE RIGHT FORMAT 🤬🤬🤬🤬🤬
         for email in find_emails:
             print(email)
             email_name = email.split("@")[0]
