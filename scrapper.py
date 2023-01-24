@@ -24,11 +24,14 @@ if choice_arg == "1":
     number_of_results = int(number_of_results)
     results = list(googlesearch(search_string, num_results=number_of_results))
     print("Searching... " + search_string)
+    print(f'{len(results)} websites found')
 elif choice_arg == "2":
     search_string = input("Enter the domain:")
     number_of_results = input("How much Google results you want ? ")
     number_of_results = int(number_of_results)
-    results = googlesearch(search_string, num_results=number_of_results, site_search=search_string)
+    #results = googlesearch(search_string, num_results=number_of_results, site_search=search_string)
+    url = f"https://www.google.com/search?q=site%3A{search_string}"
+    results = requests.get(url)
     print("Domain searching... " + search_string)
 else:
     print("Invalid search type. Please enter 1 for simple string search or 2 for domain search.")
@@ -38,8 +41,6 @@ import os
 current_directory = os.getcwd()
 
 file_path = os.path.join(current_directory, 'emails.list')
-
-print(f'{len(results)} websites found')
 
 email_count = 0
 
