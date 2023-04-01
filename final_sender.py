@@ -6,7 +6,8 @@ sender_email = "your_email@example.com"
 sender_password = "your_password"
 
 # subject of the email
-subject = "Important message"
+subject = "Solutions digital pour votre entreprise"
+sender_name = "Wael Bousfira, Insight-Development"
 
 # read the list of email addresses from the file
 with open("emails.list", "r") as email_list:
@@ -27,7 +28,7 @@ for email_address in email_addresses:
     title = email_info[1] # Change company_name to title
     first_name = email_info[2]
     last_name = email_info[3]
-    message = (f"Hello {first_name} {last_name},\n\nThis is an important message from {title}.\n\nBest regards,\n {title}")
+    message = (f"Bonjour {first_name} {last_name},\n\nJe me permets de vous contacter pour vous présenter notre agence web et les solutions numériques que nous proposons. Nous sommes spécialisés dans le conception et le développement web standard et développment d'applications et logiciel pour entreprise, ainsi que des plateformes sur mesure pour entreprise.\nNous savons que chaque entreprise est unique et a des besoins spécifiques. Notre équipe d'experts travaillera en étroité collaboration avec vous pour comprendre vos besoins et fournir des solutions personnalisés et rentables qui répondent aux objectifs commerciaux de {title}.\n\nSi vous êtes intéressé par nos services, nous serions heureux de discuter de la manière dont nous pourrions collaborer. N'hésitez pas à nous contacter pour parler plus précisemment de vos besoins.\n\nCordialement,\n\n{sender_name}\n")
     msg = MIMEText(message)
     msg['Subject'] = subject
     msg['From'] = sender_email
