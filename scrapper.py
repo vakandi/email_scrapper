@@ -45,7 +45,7 @@ file_path = os.path.join(current_directory, 'emails.list')
 email_count = 0
 
 visited_pages = set()
-def get_emails(url):
+def get_emails(url, title):
     """Function that gets emails from a webpage and it's links"""
     global email_count, visited_pages
     start_time = time.time()
@@ -71,7 +71,7 @@ def get_emails(url):
                 domain = re.search("@[\w.]+", email).group()[1:]
                 try:
                     with open(file_path, "a", encoding="utf-8") as file:
-                        file.write(f"{email},{domain},{first_name},{last_name}\n")
+                        file.write(f"{email},{domain},{first_name},{last_name},{title}\n")
                         print(f"{email} saved to emails.list")
                 except OSError:
                     print(f"Cannot write to {file_path}. Do you have permission to create files in this directory?")
@@ -80,7 +80,7 @@ def get_emails(url):
                         new_link = url + a["href"]
                         print(f'Searching for emails on {new_link}')
                     try:
-                        get_emails(new_link)
+                        get_emails(new_link, title)
                     except requests.exceptions.RequestException as e:
                         print(f"Couldn't connect to {new_link}. Error: {e}")
         except requests.exceptions.RequestException as e:
@@ -94,9 +94,11 @@ def get_emails(url):
 
 
 for i, link in enumerate(results):
+    title = f"Page {i + 1} of {len(results)}"
     print(f'Searching for emails on {link}')
     try:
-        get_emails(link)
+        get_emails(link, title)
     except requests.exceptions.RequestException as e:
         print(f"Couldn't connect to {link}. Error: {e}")
 print(f'{email_count} email(s) found in total')
+
